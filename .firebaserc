@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mapas-a4b08": {
+      "hosting": {
+        "citasMedicas": [
+          "citasmedicas-4cb55"
+        ]
+      }
+    }
+  }
+}

@@ -7,6 +7,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
+// Firebase config
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 // Ngzorro modules
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -30,6 +35,8 @@ import { AuthComponent } from './components/auth/auth.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     NzButtonModule,
     NzLayoutModule,
     NzMenuModule,

@@ -11,6 +11,8 @@ export class LoginComponent implements OnInit {
   @Input() signUp: boolean;
   @Output() formSignUpEvent = new EventEmitter<boolean>();
   @Output() formLogInEvent = new EventEmitter<boolean>();
+  @Output() signUpEvent = new EventEmitter<boolean>();
+  @Output() logInEvent = new EventEmitter<boolean>();
   validateForm!: FormGroup;
 
   submitForm(): void {
@@ -19,9 +21,12 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if (this.signUp === true) {
-      this.validateForm.value.remember = false;
+      this.onSignUpChange(this.validateForm.value);
+      this.validateForm.reset();
+    } else {
+      this.onLogInChange(this.validateForm.value);
+      this.validateForm.reset();
     }
-    console.log(this.validateForm.value);
   }
   constructor(private fb: FormBuilder) {}
 
@@ -30,14 +35,11 @@ export class LoginComponent implements OnInit {
   }
 
   initializeForm() {
-    this.validateForm = this.fb.group({
-      correo: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      name: [null],
-      lastname: [null],
-      cellphonenumber: [null],
-      remember: true,
-    });
+    return (this.validateForm = this.fb.group({
+      correo: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      remember: [true],
+    }));
   }
 
   ngOnChanges(changes: any) {
@@ -45,15 +47,30 @@ export class LoginComponent implements OnInit {
     // console.log(changes.signUp.currentValue);
 
     if (changes.signUp.currentValue === true) {
-      this.validateForm.reset();
-      this.validateForm.markAsUntouched();
-      this.validateForm.controls['name'].setValidators([Validators.required]);
-      this.validateForm.controls['lastname'].setValidators([
-        Validators.required,
-      ]);
-      this.validateForm.controls['cellphonenumber'].setValidators([
-        Validators.required,
-      ]);
+      this.validateForm.addControl(
+        'name',
+        this.fb.control('', [Validators.required])
+      );
+      this.validateForm.addControl(
+        'lastname',
+        this.fb.control('', [Validators.required])
+      );
+      this.validateForm.addControl(
+        'cellphonenumber',
+        this.fb.control('', [Validators.required])
+      );
+      this.validateForm.removeControl('remember');
+    }
+    if (changes.logIn.currentValue === true) {
+      if (this.validateForm) {
+        this.validateForm.removeControl('name');
+        this.validateForm.removeControl('lastname');
+        this.validateForm.removeControl('cellphonenumber');
+        this.validateForm.addControl(
+          'remember',
+          this.fb.control('true', [Validators.required])
+        );
+      }
     }
   }
 
@@ -63,5 +80,13 @@ export class LoginComponent implements OnInit {
 
   onFormLogInChange(value) {
     this.formLogInEvent.emit(value);
+  }
+
+  onSignUpChange(value) {
+    this.signUpEvent.emit(value);
+  }
+
+  onLogInChange(value) {
+    this.logInEvent.emit(value);
   }
 }
