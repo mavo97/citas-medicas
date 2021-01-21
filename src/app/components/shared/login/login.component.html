@@ -1,0 +1,140 @@
+<div class="container customDiv">
+  <div class="row justify-content-center">
+    <div class="col-6 align-self-center text-center">
+      <h3 *ngIf="logIn && !signUp">Iniciar sesión</h3>
+      <h3 *ngIf="!logIn && signUp">Regístrate</h3>
+      <form
+        nz-form
+        [formGroup]="validateForm"
+        class="login-form"
+        (ngSubmit)="submitForm()"
+      >
+        <nz-form-item *ngIf="!logIn && signUp">
+          <nz-form-control
+            nzErrorTip="
+        ¡Ingrese su nombre completo!"
+          >
+            <nz-input-group>
+              <i class="fas fa-pen-alt fa-2x iconLogin"></i>
+              <input
+                type="text"
+                nz-input
+                formControlName="name"
+                placeholder="Nombre completo"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="!logIn && signUp">
+          <nz-form-control
+            nzErrorTip="
+        ¡Ingrese sus apellidos!"
+          >
+            <nz-input-group>
+              <i class="fas fa-signature fa-2x iconLogin"></i>
+              <input
+                type="text"
+                nz-input
+                formControlName="lastname"
+                placeholder="Apellidos"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="!logIn && signUp">
+          <nz-form-control
+            nzErrorTip="
+        ¡Ingrese su número de télefono!"
+          >
+            <nz-input-group>
+              <i class="fas fa-phone-alt fa-2x iconLogin"></i>
+              <input
+                type="text"
+                nz-input
+                formControlName="cellphonenumber"
+                placeholder="Número de télefono"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control
+            nzErrorTip="
+          ¡Ingrese su correo electrónico!"
+          >
+            <nz-input-group>
+              <i class="fas fa-user fa-2x iconLogin"></i>
+              <input
+                type="text"
+                nz-input
+                formControlName="correo"
+                placeholder="Nombre de usuario"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control
+            nzErrorTip="
+          Introduzca su contraseña."
+          >
+            <nz-input-group>
+              <i class="fas fa-lock fa-2x iconLogin"></i>
+              <input
+                type="text"
+                nz-input
+                formControlName="password"
+                placeholder="Contraseña"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <div nz-row class="login-form-margin">
+          <div nz-col [nzSpan]="12">
+            <label
+              nz-checkbox
+              formControlName="remember"
+              *ngIf="logIn && !signUp"
+            >
+              <span>Recuérdame</span>
+            </label>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <a class="login-form-forgot" *ngIf="logIn && !signUp"
+              >Se te olvidó tu contraseña</a
+            >
+          </div>
+        </div>
+        <button
+          nz-button
+          class="login-form-button login-form-margin"
+          [nzType]="'primary'"
+          [disabled]="!validateForm.valid"
+          *ngIf="logIn && !signUp"
+        >
+          Iniciar sesión
+        </button>
+        <button
+          nz-button
+          class="login-form-button login-form-margin"
+          [nzType]="'primary'"
+          [disabled]="!validateForm.valid"
+          *ngIf="signUp && !logIn"
+        >
+          Regístrate
+        </button>
+        <p class="text-white mt-3" *ngIf="!signUp && logIn">
+          ¡O
+          <a (click)="onFormSignUpChange(true)" type="button">
+            regístrese ahora!
+          </a>
+        </p>
+        <p class="text-white mt-3" *ngIf="signUp && !logIn">
+          <a (click)="onFormLogInChange(true)" type="button">
+            Iniciar sesión
+          </a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
