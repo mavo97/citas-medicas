@@ -1,8 +1,10 @@
-<app-login
-  [logIn]="logIn"
-  [signUp]="signUp"
-  (formSignUpEvent)="formSignUpEventHander($event)"
-  (formLogInEvent)="formLogInEventHander($event)"
-  (logInEvent)="logInEventHander($event)"
-  (signUpEvent)="signUpEventHander($event)"
-></app-login>
+<div class="container">
+  <app-login
+    [logIn]="logIn"
+    [signUp]="signUp"
+    (formSignUpEvent)="formSignUpEventHander($event)"
+    (formLogInEvent)="formLogInEventHander($event)"
+    (logInEvent)="logInEventHander($event)"
+    (signUpEvent)="signUpEventHander($event)"
+  ></app-login>
+</div>

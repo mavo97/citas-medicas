@@ -66,10 +66,7 @@ export class LoginComponent implements OnInit {
         this.validateForm.removeControl('name');
         this.validateForm.removeControl('lastname');
         this.validateForm.removeControl('cellphonenumber');
-        this.validateForm.addControl(
-          'remember',
-          this.fb.control('true', [Validators.required])
-        );
+        this.validateForm.addControl('remember', this.fb.control('true'));
       }
     }
   }

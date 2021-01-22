@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../providers/authentication.service';
+import { UsuariosService } from '../../providers/usuarios.service';
+import { Usuario } from '../../interfaces/usuario-interface';
+import { Alert } from '../../interfaces/alert';
 
 @Component({
   selector: 'app-auth',
@@ -9,8 +12,12 @@ import { AuthenticationService } from '../../providers/authentication.service';
 export class AuthComponent implements OnInit {
   public logIn = true;
   public signUp = false;
+  alert: Alert = new Alert();
 
-  constructor(public authService: AuthenticationService) {}
+  constructor(
+    public authService: AuthenticationService,
+    public userService: UsuariosService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -24,15 +31,30 @@ export class AuthComponent implements OnInit {
     this.logIn === true ? (this.signUp = false) : (this.logIn = true);
   }
 
-  signUpEventHander($event: any) {
-    let correo: string = $event.correo;
-    let password: string = $event.password;
-    console.log(correo, password);
-    this.authService.signUp(correo, password);
+  signUpEventHander($event: Usuario) {
+    const user: Usuario = { ...$event, role: 'Paciente' };
+
+    this.authService
+      .signUp(user.correo, user.password)
+      .then((result) => {
+        console.log(result.user);
+        delete user.password;
+        this.userService
+          .addUser(user)
+          .then(() =>
+            this.alert.success(
+              'Registro exitoso!',
+              'Tú correo se encuentra registrado!'
+            )
+          )
+          .catch((error) => this.alert.error(error.message));
+      })
+      .catch((error) => {
+        this.alert.error(error.message);
+      });
   }
 
   logInEventHander($event: any) {
-    console.log($event);
     this.authService.signIn($event.correo, $event.password);
   }
 }
