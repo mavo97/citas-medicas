@@ -1,12 +1,12 @@
-<div class="nz-demo-menu-horizontal">
+<div class="nz-demo-menu-horizontal bg-color">
   <ul nz-menu nzMode="horizontal" [nzTheme]="'dark'">
-    <li nz-menu-item nzSelected>
+    <li nz-menu-item nzSelecteds *ngIf="tipoUsuario === 'Admin'">
       <i class="fab fa-spotify text-success"></i>
       Navigation One
     </li>
-    <li nz-menu-item nzDisabled>
-      <i nz-icon nzType="appstore"></i>
-      Navigation Two
+    <li nz-menu-item (click)="logOut()" *ngIf="auth.isLoggedIn">
+      <i class="fas fa-sign-out-alt text-white"></i>
+      Cerrar Sesión
     </li>
   </ul>
 </div>

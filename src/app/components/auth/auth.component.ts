@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../providers/authentication.service';
 import { UsuariosService } from '../../providers/usuarios.service';
 import { Usuario } from '../../interfaces/usuario-interface';
 import { Alert } from '../../interfaces/alert';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -16,7 +17,8 @@ export class AuthComponent implements OnInit {
 
   constructor(
     public authService: AuthenticationService,
-    public userService: UsuariosService
+    public userService: UsuariosService,
+    public router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -37,16 +39,17 @@ export class AuthComponent implements OnInit {
     this.authService
       .signUp(user.correo, user.password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         delete user.password;
+
         this.userService
-          .addUser(user)
-          .then(() =>
+          .addUser(user, result.user.uid)
+          .then(() => {
             this.alert.success(
               'Registro exitoso!',
               'Tú correo se encuentra registrado!'
-            )
-          )
+            );
+          })
           .catch((error) => this.alert.error(error.message));
       })
       .catch((error) => {
@@ -56,5 +59,10 @@ export class AuthComponent implements OnInit {
 
   logInEventHander($event: any) {
     this.authService.signIn($event.correo, $event.password);
+    if ($event.remember) {
+      localStorage.setItem('correo', $event.correo);
+    } else {
+      localStorage.removeItem('correo');
+    }
   }
 }

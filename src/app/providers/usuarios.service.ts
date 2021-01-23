@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario-interface';
+import { Observable } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -15,10 +16,17 @@ export class UsuariosService {
     this.usersCollection = afs.collection<Usuario>('users');
   }
 
-  addUser(user: Usuario) {
-    const id = this.afs.createId();
+  addUser(user: Usuario, id: string) {
+    // const id = this.afs.createId();
     const userToSave: Usuario = { id, ...user };
-    // this.usersCollection.doc(id).set(item);
-    return this.usersCollection.add(userToSave);
+    return this.usersCollection.doc(id).set(userToSave);
+    // return this.usersCollection.add(userToSave);
+  }
+
+  getByFilters(correo: string) {
+    return (this.usersCollection = this.afs.collection<Usuario>(
+      'users',
+      (ref) => ref.where('correo', '==', correo)
+    ));
   }
 }

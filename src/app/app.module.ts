@@ -24,9 +24,11 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { MenuComponent } from './components/shared/menu/menu.component';
 import { LoginComponent } from './components/shared/login/login.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { PatientComponent } from './components/patient/patient.component';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, LoginComponent, AuthComponent],
+  declarations: [AppComponent, MenuComponent, LoginComponent, AuthComponent, AdminComponent, PatientComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

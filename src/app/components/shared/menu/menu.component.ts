@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../../providers/authentication.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,8 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
   theme: boolean = true;
+  tipoUsuario: string;
 
-  constructor() {}
+  constructor(public auth: AuthenticationService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.auth.tipoUsuario();
+  }
+
+  ngDoCheck() {
+    this.auth.messageCurrent.subscribe(
+      (message) => (this.tipoUsuario = message)
+    );
+  }
+
+  logOut() {
+    this.auth.logOut();
+  }
 }

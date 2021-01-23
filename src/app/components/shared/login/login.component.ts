@@ -9,11 +9,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   @Input() logIn: boolean;
   @Input() signUp: boolean;
+  @Input() resetForm: boolean;
   @Output() formSignUpEvent = new EventEmitter<boolean>();
   @Output() formLogInEvent = new EventEmitter<boolean>();
   @Output() signUpEvent = new EventEmitter<boolean>();
   @Output() logInEvent = new EventEmitter<boolean>();
   validateForm!: FormGroup;
+  remember = false;
+  correo: string;
 
   submitForm(): void {
     for (const i in this.validateForm.controls) {
@@ -25,20 +28,31 @@ export class LoginComponent implements OnInit {
       this.validateForm.reset();
     } else {
       this.onLogInChange(this.validateForm.value);
-      this.validateForm.reset();
+      this.emailIsSaved();
     }
   }
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.emailIsSaved();
     this.initializeForm();
+  }
+
+  emailIsSaved() {
+    if (localStorage.getItem('correo')) {
+      this.correo = localStorage.getItem('correo');
+      this.remember = true;
+    } else {
+      this.correo = '';
+      this.remember = false;
+    }
   }
 
   initializeForm() {
     return (this.validateForm = this.fb.group({
-      correo: ['', [Validators.required]],
+      correo: [this.correo, [Validators.required]],
       password: ['', [Validators.required]],
-      remember: [true],
+      remember: [this.remember],
     }));
   }
 
@@ -69,6 +83,8 @@ export class LoginComponent implements OnInit {
         this.validateForm.addControl('remember', this.fb.control('true'));
       }
     }
+
+    this.emailIsSaved();
   }
 
   onFormSignUpChange(value) {
