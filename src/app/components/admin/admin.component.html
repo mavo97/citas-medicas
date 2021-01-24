@@ -36,7 +36,7 @@
           <td>{{ data.correo }}</td>
           <td>{{ data.cellphonenumber }}</td>
           <td>
-            <a (click)="scheduleAppoinment(data.id)">
+            <a (click)="scheduleAppoinment(data)">
               <i class="fas fa-calendar"> </i>
             </a>
             <nz-divider nzType="vertical"></nz-divider>
@@ -67,6 +67,25 @@
 
   <ng-template #modalFooter>
     <button nz-button nzType="default" (click)="handleCancel()">
+      Cerrar modal
+    </button>
+  </ng-template>
+</nz-modal>
+
+<nz-modal
+  [nzStyle]="{ top: '20px' }"
+  [(nzVisible)]="isVisibleTop"
+  nzTitle="Agendar cita"
+  [nzFooter]="modalFooterTop"
+>
+  <ng-container *nzModalContent>
+    <app-appointment-form
+      [userAppointment]="userAppointment"
+    ></app-appointment-form>
+  </ng-container>
+
+  <ng-template #modalFooterTop>
+    <button nz-button nzType="default" (click)="handleCancelTop()">
       Cerrar modal
     </button>
   </ng-template>

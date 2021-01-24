@@ -22,6 +22,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzMentionModule } from 'ng-zorro-antd/mention';
 
 // Components
 import { MenuComponent } from './components/shared/menu/menu.component';
@@ -30,6 +32,16 @@ import { AuthComponent } from './components/auth/auth.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { PatientComponent } from './components/patient/patient.component';
 import { EditUserComponent } from './components/shared/edit-user/edit-user.component';
+import { AppointmentFormComponent } from './components/shared/appointment-form/appointment-form.component';
+
+// Traduccion al español
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+// Ng zorro date
+import { NZ_I18N, es_ES } from 'ng-zorro-antd/i18n';
+
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -40,6 +52,7 @@ import { EditUserComponent } from './components/shared/edit-user/edit-user.compo
     AdminComponent,
     PatientComponent,
     EditUserComponent,
+    AppointmentFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,8 +73,10 @@ import { EditUserComponent } from './components/shared/edit-user/edit-user.compo
     NzTableModule,
     NzDividerModule,
     NzModalModule,
+    NzDatePickerModule,
+    NzMentionModule,
   ],
-  providers: [],
+  providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,42 @@
+<div class="container">
+  <h4>
+    <i class="fas fa-calendar-check"></i> Cita para
+    <span style="font-style: italic">{{ userAppointment.name }}</span>
+  </h4>
+  <nz-date-picker
+    [nzDisabledDate]="disabledStartDate"
+    nzShowTime
+    nzFormat="dd-MM-yyyy HH:mm"
+    [(ngModel)]="startValue"
+    nzPlaceHolder="Hora inicio"
+    (nzOnOpenChange)="handleStartOpenChange($event)"
+  ></nz-date-picker>
+  <nz-date-picker
+    #endDatePicker
+    [nzDisabledDate]="disabledEndDate"
+    nzShowTime
+    nzFormat="dd-MM-yyyy HH:mm"
+    [(ngModel)]="endValue"
+    nzPlaceHolder="Hora fín"
+    (nzOnOpenChange)="handleEndOpenChange($event)"
+  ></nz-date-picker>
+  <span style="color: red">*Campo opcional</span>
+  <nz-mention>
+    <textarea
+      nz-input
+      [nzAutosize]="{ minRows: 4, maxRows: 4 }"
+      [(ngModel)]="inputValue"
+      placeholder="Detalles de la cita"
+      nzMentionTrigger
+    >
+    </textarea>
+  </nz-mention>
+  <button
+    nz-button
+    nzType="primary"
+    *ngIf="startValue !== null && endValue !== null"
+    (click)="saveAppointment()"
+  >
+    Guardar cita
+  </button>
+</div>

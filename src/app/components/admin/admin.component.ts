@@ -42,6 +42,8 @@ export class AdminComponent implements OnInit {
   editUserModal: boolean;
   registerUserModal: boolean;
   idUser: string;
+  isVisibleTop = false;
+  userAppointment: Usuario;
 
   listOfColumns: ColumnItem[] = [
     {
@@ -67,8 +69,9 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  scheduleAppoinment(id: string) {
-    console.log(id);
+  scheduleAppoinment(user: Usuario) {
+    this.userAppointment = user;
+    this.isVisibleTop = true;
   }
 
   editUser(user: Usuario) {
@@ -179,5 +182,9 @@ export class AdminComponent implements OnInit {
         this.alert.error(error.message);
       });
     this.loadUsers();
+  }
+
+  handleCancelTop(): void {
+    this.isVisibleTop = false;
   }
 }
