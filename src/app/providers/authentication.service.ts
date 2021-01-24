@@ -80,6 +80,7 @@ export class AuthenticationService {
     return this.auth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['inicio']);
+      this.tipoUser.next(null);
     });
   }
 

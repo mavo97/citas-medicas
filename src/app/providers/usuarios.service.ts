@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario-interface';
-import { Observable } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ import {
 export class UsuariosService {
   private usersCollection: AngularFirestoreCollection<Usuario>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private auth: AngularFireAuth) {
     this.usersCollection = afs.collection<Usuario>('users');
   }
 
@@ -23,10 +23,26 @@ export class UsuariosService {
     // return this.usersCollection.add(userToSave);
   }
 
+  editUser(user: Usuario) {
+    return this.usersCollection.doc(user.id).update(user);
+  }
+
+  deleteUser(user: Usuario) {
+    return this.usersCollection.doc(user.id).delete();
+  }
+
   getByFilters(correo: string) {
     return (this.usersCollection = this.afs.collection<Usuario>(
       'users',
       (ref) => ref.where('correo', '==', correo)
     ));
+  }
+
+  getPatients() {
+    return this.afs
+      .collection<Usuario>('users', (ref) =>
+        ref.where('role', '==', 'Paciente')
+      )
+      .valueChanges();
   }
 }

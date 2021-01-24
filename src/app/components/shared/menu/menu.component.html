@@ -1,4 +1,4 @@
-<div class="nz-demo-menu-horizontal bg-color">
+<!-- <div class="nz-demo-menu-horizontal bg-color">
   <ul nz-menu nzMode="horizontal" [nzTheme]="'dark'">
     <li nz-menu-item nzSelecteds *ngIf="tipoUsuario === 'Admin'">
       <i class="fab fa-spotify text-success"></i>
@@ -9,4 +9,32 @@
       Cerrar Sesión
     </li>
   </ul>
-</div>
+</div> -->
+
+<!-- <nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand">Navbar <i class="fas fa-calendar"></i></a>
+</nav> -->
+<!-- Image and text -->
+<nav class="navbar navbar-dark bg-dark">
+  <a
+    class="navbar-brand ml"
+    [routerLink]="['/paciente']"
+    *ngIf="tipoUsuario === 'Paciente'"
+  >
+    <i class="fas fa-user"></i> Mi perfil
+  </a>
+  <a
+    class="navbar-brand"
+    [routerLink]="['/paciente']"
+    *ngIf="tipoUsuario === 'Admin'"
+  >
+    <i class="fas fa-user-shield"></i> Administrador
+  </a>
+
+  <span class="navbar-text">
+    <a class="mr" (click)="logOut()" *ngIf="auth.isLoggedIn">
+      <i class="fas fa-sign-out-alt text-white"></i>
+      Cerrar sesión
+    </a>
+  </span>
+</nav>

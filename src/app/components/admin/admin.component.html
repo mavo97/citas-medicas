@@ -1,1 +1,179 @@
-<p>admin works!</p>
+<div class="container text-white">
+  <div class="mt-3">
+    <p>admin works!</p>
+    <div class="table-operations"></div>
+    <nz-table
+      #filterTable
+      [nzData]="users"
+      nzTableLayout="fixed"
+      [nzBordered]="true"
+      [nzLoading]="loading"
+      [nzTitle]="'Lista de pacientes'"
+      [nzNoResult]="'Sin pacientes registrados'"
+      [nzSimple]="true"
+      [nzPageSize]="10"
+      [nzScroll]="{ x: '1150px', y: '240px' }"
+    >
+      <thead>
+        <tr>
+          <th
+            *ngFor="let column of listOfColumns"
+            [(nzSortOrder)]="column.sortOrder"
+            [nzSortFn]="column.sortFn"
+          >
+            {{ column.name }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of filterTable.data">
+          <td>{{ data.name }}</td>
+          <td>{{ data.lastname }}</td>
+          <td>{{ data.correo }}</td>
+          <td>{{ data.cellphonenumber }}</td>
+          <td>
+            <a (click)="scheduleAppoinment(data.id)">
+              <i class="fas fa-calendar"> </i>
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="editUser(data)"> <i class="fas fa-edit"> </i></a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="deleteUser(data)"> <i class="fas fa-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-template #modalTitle>Custom Modal Title</ng-template>
+
+  <ng-template #modalContent>
+    <form
+      nz-form
+      [formGroup]="validateForm"
+      class="login-form"
+      (ngSubmit)="submitForm()"
+    >
+      <nz-form-item>
+        <nz-form-control
+          nzErrorTip="
+    ¡Ingrese su nombre completo!"
+        >
+          <nz-input-group>
+            <i class="fas fa-pen-alt fa-2x iconLogin"></i>
+            <input
+              type="text"
+              nz-input
+              formControlName="name"
+              placeholder="Nombre completo"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control
+          nzErrorTip="
+    ¡Ingrese sus apellidos!"
+        >
+          <nz-input-group>
+            <i class="fas fa-signature fa-2x iconLogin"></i>
+            <input
+              type="text"
+              nz-input
+              formControlName="lastname"
+              placeholder="Apellidos"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control
+          nzErrorTip="
+    ¡Ingrese su número de télefono!"
+        >
+          <nz-input-group>
+            <i class="fas fa-phone-alt fa-2x iconLogin"></i>
+            <input
+              type="text"
+              nz-input
+              formControlName="cellphonenumber"
+              placeholder="Número de télefono"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control
+          nzErrorTip="
+      ¡Ingrese su correo electrónico!"
+        >
+          <nz-input-group>
+            <i class="fas fa-user fa-2x iconLogin"></i>
+            <input
+              type="text"
+              nz-input
+              formControlName="correo"
+              placeholder="Nombre de usuario"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control
+          nzErrorTip="
+      Introduzca su contraseña."
+        >
+          <nz-input-group>
+            <i class="fas fa-lock fa-2x iconLogin"></i>
+            <input
+              type="password"
+              nz-input
+              formControlName="password"
+              placeholder="Contraseña"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button
+        nz-button
+        class="login-form-button login-form-margin"
+        [nzType]="'primary'"
+        [disabled]="!validateForm.valid"
+      >
+        Iniciar sesión
+      </button>
+      <button
+        nz-button
+        class="login-form-button login-form-margin"
+        [nzType]="'primary'"
+        [disabled]="!validateForm.valid"
+      >
+        Regístrate
+      </button>
+    </form>
+  </ng-template>
+
+  <ng-template #modalFooter>
+    <span>Modal Footer:</span>
+    <button nz-button nzType="default" (click)="handleCancel()">
+      Custom Callback
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="handleOk()"
+      [nzLoading]="isConfirmLoading"
+    >
+      Custom Submit
+    </button>
+  </ng-template>
+</nz-modal>

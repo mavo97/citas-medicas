@@ -19,6 +19,9 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 // Components
 import { MenuComponent } from './components/shared/menu/menu.component';
@@ -28,7 +31,14 @@ import { AdminComponent } from './components/admin/admin.component';
 import { PatientComponent } from './components/patient/patient.component';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, LoginComponent, AuthComponent, AdminComponent, PatientComponent],
+  declarations: [
+    AppComponent,
+    MenuComponent,
+    LoginComponent,
+    AuthComponent,
+    AdminComponent,
+    PatientComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -45,6 +55,9 @@ import { PatientComponent } from './components/patient/patient.component';
     NzFormModule,
     NzCheckboxModule,
     NzInputModule,
+    NzTableModule,
+    NzDividerModule,
+    NzModalModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
