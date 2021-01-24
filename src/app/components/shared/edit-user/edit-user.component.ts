@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-edit-user',
@@ -14,6 +19,7 @@ export class EditUserComponent implements OnInit {
   @Output() logInEvent = new EventEmitter<boolean>();
 
   submitForm(): void {
+    // tslint:disable-next-line: forin
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
@@ -30,18 +36,11 @@ export class EditUserComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.initializeForm();
+    this.editUser ? this.initializeForm() : this.inicializeForm2();
   }
 
   initializeForm() {
     return (this.validateForm = this.fb.group({
-      correo: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
-        ],
-      ],
       name: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       cellphonenumber: [
@@ -56,18 +55,28 @@ export class EditUserComponent implements OnInit {
     }));
   }
 
-  ngOnChanges(changes: any) {
-    if (changes.editUser === true) {
-      this.validateForm.addControl(
-        'password',
-        this.fb.control('', [Validators.required])
-      );
-    }
-    if (changes.registerUser === true) {
-      if (this.validateForm) {
-        this.validateForm.addControl('password', this.fb.control('true'));
-      }
-    }
+  inicializeForm2() {
+    return (this.validateForm = this.fb.group({
+      name: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+      cellphonenumber: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.minLength(10),
+          Validators.pattern('^(0|[1-9][0-9]*)$'),
+        ],
+      ],
+      correo: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
+        ],
+      ],
+      password: ['', [Validators.required]],
+    }));
   }
 
   onSignUpChange(value) {

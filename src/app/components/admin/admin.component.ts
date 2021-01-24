@@ -8,6 +8,7 @@ import {
   NzTableSortOrder,
 } from 'ng-zorro-antd/table';
 import { Alert } from 'src/app/interfaces/alert';
+import { AuthenticationService } from '../../providers/authentication.service';
 
 interface ColumnItem {
   name: string;
@@ -21,6 +22,14 @@ interface ColumnItem {
   styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent implements OnInit {
+  constructor(
+    public usersService: UsuariosService,
+    public authService: AuthenticationService
+  ) {
+    // this.usersService.getPatients().subscribe((data) => console.log(data));
+    this.loading = true;
+    this.loadUsers();
+  }
   name: string;
   sortOrder: NzTableSortOrder | null;
   sortFn: NzTableSortFn | null;
@@ -32,14 +41,7 @@ export class AdminComponent implements OnInit {
   isConfirmLoading = false;
   editUserModal: boolean;
   registerUserModal: boolean;
-
-  constructor(public usersService: UsuariosService) {
-    // this.usersService.getPatients().subscribe((data) => console.log(data));
-    this.loading = true;
-    this.loadUsers();
-  }
-
-  ngOnInit(): void {}
+  idUser: string;
 
   listOfColumns: ColumnItem[] = [
     {
@@ -63,14 +65,23 @@ export class AdminComponent implements OnInit {
     },
   ];
 
+  ngOnInit(): void {}
+
   scheduleAppoinment(id: string) {
     console.log(id);
   }
 
-  editUser(id: string) {
+  editUser(user: Usuario) {
     this.isVisible = true;
     this.modalVarsValues(true, false);
+    this.idUser = user.id;
   }
+
+  registerUser() {
+    this.isVisible = true;
+    this.modalVarsValues(false, true);
+  }
+
   deleteUser(user: Usuario) {
     this.alert.confirmAlert().then((result) => {
       if (result.isConfirmed) {
@@ -120,10 +131,53 @@ export class AdminComponent implements OnInit {
   }
 
   signUpEventHander($event: any) {
-    console.log($event);
+    const newUser: Usuario = { id: this.idUser, ...$event };
+
+    this.usersService
+      .editUser(newUser)
+      .then(() => {
+        this.alert.mostrarAlerta(
+          'success',
+          'Usuario actualizado correctamente',
+          '',
+          1000
+        );
+        this.loadUsers();
+      })
+      .catch((err) => {
+        this.alert.mostrarAlerta(
+          'error',
+          'No se pudo actualizar el usuario',
+          err,
+          1000
+        );
+      });
   }
 
   logInEventHander($event: any) {
     console.log($event);
+    const user: Usuario = { ...$event, role: 'Paciente' };
+
+    this.authService
+      .signUp(user.correo, user.password)
+      .then((result) => {
+        // console.log(result.user);
+        delete user.password;
+
+        this.usersService
+          .addUser(user, result.user.uid)
+          .then(() => {
+            this.alert.success(
+              'Registro exitoso!',
+              'El usuario se encuentra registrado!'
+            );
+            this.authService.auth.signOut();
+          })
+          .catch((error) => this.alert.error(error.message));
+      })
+      .catch((error) => {
+        this.alert.error(error.message);
+      });
+    this.loadUsers();
   }
 }

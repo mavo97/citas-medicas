@@ -11,7 +11,7 @@ label {
   color: white;
 }
 ::placeholder {
-  color: black;
+  color: #808080;
   font-style: italic;
 }
 button:disabled,

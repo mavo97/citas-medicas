@@ -33,18 +33,18 @@ export class Alert {
 
   // Custom alert
   public mostrarAlerta(
-    severity: 'success' | 'info' | 'warning' | 'error',
-    summary?: string,
+    type: 'success' | 'info' | 'warning' | 'error',
+    mainTitle?: string,
     detail?: string,
     life = 10000
   ) {
     Swal.fire({
-      title: summary,
+      title: mainTitle,
       showConfirmButton: false,
       timer: life,
       position: 'top-end',
       text: detail,
-      icon: severity,
+      icon: type,
     });
   }
 

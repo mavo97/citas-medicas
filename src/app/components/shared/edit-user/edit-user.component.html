@@ -1,4 +1,4 @@
-<div class="container customDiv" class="bg-dark">
+<div class="container customDiv">
   <div class="row justify-content-center">
     <div class="col-6 align-self-center text-center">
       <h3>Editar usuario</h3>
@@ -62,7 +62,7 @@
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
-        <nz-form-item>
+        <nz-form-item *ngIf="registerUser && !editUser">
           <nz-form-control
             nzErrorTip="
             ¡Ingrese su correo electrónico validó!"
@@ -78,10 +78,10 @@
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
-        <nz-form-item *ngIf="registerUser === true">
+        <nz-form-item *ngIf="registerUser && !editUser">
           <nz-form-control
             nzErrorTip="
-            Introduzca su contraseña."
+          Introduzca su contraseña."
           >
             <nz-input-group>
               <i class="fas fa-lock fa-2x iconLogin"></i>
@@ -96,12 +96,22 @@
         </nz-form-item>
         <div class="text-white"></div>
         <button
+          *ngIf="editUser === true"
           nz-button
           class="login-form-button login-form-margin"
           [nzType]="'primary'"
           [disabled]="!validateForm.valid"
         >
-          Regístrate
+          Actualizar usuario
+        </button>
+        <button
+          *ngIf="registerUser === true"
+          nz-button
+          class="login-form-button login-form-margin"
+          [nzType]="'primary'"
+          [disabled]="!validateForm.valid"
+        >
+          Dar de alta usuario
         </button>
       </form>
     </div>

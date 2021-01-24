@@ -11,9 +11,11 @@ label {
   color: white;
 }
 ::placeholder {
-  color: black;
-  font-style: italic;
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #808080;
+  opacity: 1; /* Firefox */
 }
+
 button:disabled,
 button[disabled] {
   color: black;
