@@ -29,6 +29,7 @@ import { LoginComponent } from './components/shared/login/login.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { PatientComponent } from './components/patient/patient.component';
+import { EditUserComponent } from './components/shared/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { PatientComponent } from './components/patient/patient.component';
     AuthComponent,
     AdminComponent,
     PatientComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,

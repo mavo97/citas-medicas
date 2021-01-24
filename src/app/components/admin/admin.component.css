@@ -2,3 +2,8 @@ form nz-form-item {
   margin-right: 16px;
   margin-bottom: 8px;
 }
+
+::ng-deep .color-modal {
+  background: black !important;
+  background-color: black !important;
+}

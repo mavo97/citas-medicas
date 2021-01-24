@@ -49,6 +49,7 @@ export class AuthComponent implements OnInit {
               'Registro exitoso!',
               'Tú correo se encuentra registrado!'
             );
+            this.authService.auth.signOut();
           })
           .catch((error) => this.alert.error(error.message));
       })

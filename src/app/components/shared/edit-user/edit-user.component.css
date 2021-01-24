@@ -1,0 +1,24 @@
+.customDiv {
+  margin-top: 100px;
+}
+.iconLogin {
+  color: white;
+}
+label {
+  color: white;
+}
+.white {
+  color: white;
+}
+::placeholder {
+  color: black;
+  font-style: italic;
+}
+button:disabled,
+button[disabled] {
+  color: black;
+}
+
+h3 {
+  color: white;
+}

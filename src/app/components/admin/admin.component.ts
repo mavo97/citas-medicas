@@ -8,7 +8,6 @@ import {
   NzTableSortOrder,
 } from 'ng-zorro-antd/table';
 import { Alert } from 'src/app/interfaces/alert';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface ColumnItem {
   name: string;
@@ -31,21 +30,13 @@ export class AdminComponent implements OnInit {
   alert: Alert = new Alert();
   isVisible = false;
   isConfirmLoading = false;
-  validateForm!: FormGroup;
+  editUserModal: boolean;
+  registerUserModal: boolean;
 
-  submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-    console.log(this.validateForm.value);
-  }
-
-  constructor(public usersService: UsuariosService, private fb: FormBuilder) {
+  constructor(public usersService: UsuariosService) {
     // this.usersService.getPatients().subscribe((data) => console.log(data));
     this.loading = true;
     this.loadUsers();
-    this.initializeForm();
   }
 
   ngOnInit(): void {}
@@ -78,6 +69,7 @@ export class AdminComponent implements OnInit {
 
   editUser(id: string) {
     this.isVisible = true;
+    this.modalVarsValues(true, false);
   }
   deleteUser(user: Usuario) {
     this.alert.confirmAlert().then((result) => {
@@ -122,13 +114,16 @@ export class AdminComponent implements OnInit {
     }, 1000);
   }
 
-  initializeForm() {
-    return (this.validateForm = this.fb.group({
-      correo: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],
-      cellphonenumber: ['', [Validators.required]],
-    }));
+  modalVarsValues(editUser: boolean, registerUser: boolean) {
+    this.editUserModal = editUser;
+    this.registerUserModal = registerUser;
+  }
+
+  signUpEventHander($event: any) {
+    console.log($event);
+  }
+
+  logInEventHander($event: any) {
+    console.log($event);
   }
 }

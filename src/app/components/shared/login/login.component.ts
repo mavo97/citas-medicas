@@ -50,7 +50,13 @@ export class LoginComponent implements OnInit {
 
   initializeForm() {
     return (this.validateForm = this.fb.group({
-      correo: [this.correo, [Validators.required]],
+      correo: [
+        this.correo,
+        [
+          Validators.required,
+          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
+        ],
+      ],
       password: ['', [Validators.required]],
       remember: [this.remember],
     }));
@@ -71,7 +77,12 @@ export class LoginComponent implements OnInit {
       );
       this.validateForm.addControl(
         'cellphonenumber',
-        this.fb.control('', [Validators.required])
+        this.fb.control('', [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.minLength(10),
+          Validators.pattern('^(0|[1-9][0-9]*)$'),
+        ])
       );
       this.validateForm.removeControl('remember');
     }
