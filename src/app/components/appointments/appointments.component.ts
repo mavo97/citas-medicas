@@ -7,6 +7,7 @@ import { switchMap, map, take } from 'rxjs/operators';
 import { UsuariosService } from '../../providers/usuarios.service';
 import { combineLatest, Observable, of } from 'rxjs';
 import { uniq } from 'lodash';
+import { Usuario } from '../../interfaces/usuario-interface';
 
 @Component({
   selector: 'app-appointments',
@@ -83,7 +84,7 @@ export class AppointmentsComponent implements OnInit {
         return appointments.map((appointment) => {
           return {
             ...appointment,
-            user: users.find((a) => a.id === appointment.idUser),
+            user: users.find((a: Usuario) => a.id === appointment.idUser),
           };
         });
       })
