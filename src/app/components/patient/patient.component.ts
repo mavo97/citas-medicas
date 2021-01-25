@@ -12,7 +12,7 @@ import { Appointment } from 'src/app/interfaces/appointment-interface';
 })
 export class PatientComponent implements OnInit {
   usuario: Usuario;
-  appointments: Appointment[];
+  appointments: any[];
   constructor(
     private userService: UsuariosService,
     private appointmentService: AppointmentService
@@ -24,16 +24,15 @@ export class PatientComponent implements OnInit {
     this.appointmentService
       .getAppointmentByPatient(userStorage.uid)
       .pipe(take(1))
-      .subscribe(
-        (appointments) =>
-          (this.appointments = appointments.map((appointment) => {
-            return {
-              ...appointment,
-              startDate: this.toDateTime(appointment.startDate),
-              endDate: this.toDateTime(appointment.endDate),
-            };
-          }))
-      );
+      .subscribe((appointments) => {
+        this.appointments = appointments.map((appointment) => {
+          return {
+            ...appointment,
+            startDate: this.formatDate(appointment.startDate),
+            endDate: this.formatDate(appointment.endDate),
+          };
+        });
+      });
   }
 
   getUser(userStorage: any) {
@@ -43,9 +42,39 @@ export class PatientComponent implements OnInit {
       .subscribe((user) => (this.usuario = user[0]));
   }
 
-  toDateTime(secs) {
-    const t = new Date(1970, 0, 1); // Epoch
-    t.setSeconds(secs);
-    return t;
+  // toDateTime(secs) {
+  //   const t = new Date(1970, 0, 1); // Epoch
+  //   t.setSeconds(secs);
+  //   return t;
+  // }
+  formatDate(date) {
+    let d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear(),
+      hour = d.getHours(),
+      minute = d.getMinutes(),
+      second = d.getSeconds();
+
+    return this.formateTime(year, month, day, hour, minute, second);
+  }
+  formateTime(year, month, day, hour, minute, second) {
+    return (
+      this.makeDoubleDigit(year) +
+      '-' +
+      this.makeDoubleDigit(month) +
+      '-' +
+      this.makeDoubleDigit(day) +
+      ' ' +
+      this.makeDoubleDigit(hour) +
+      ':' +
+      this.makeDoubleDigit(minute) +
+      ':' +
+      this.makeDoubleDigit(second)
+    );
+  }
+
+  makeDoubleDigit(x) {
+    return x < 10 ? '0' + x : x;
   }
 }

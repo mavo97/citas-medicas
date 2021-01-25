@@ -20,17 +20,20 @@
     nzPlaceHolder="Hora fín"
     (nzOnOpenChange)="handleEndOpenChange($event)"
   ></nz-date-picker>
-  <span style="color: red">*Campo requerido</span>
-  <nz-mention>
-    <textarea
-      nz-input
-      [nzAutosize]="{ minRows: 4, maxRows: 4 }"
-      [(ngModel)]="inputValue"
-      placeholder="Detalles de la cita"
-      nzMentionTrigger
-    >
-    </textarea>
-  </nz-mention>
+  <div class="row">
+    <span style="color: red">*Campo requerido</span>
+    <nz-mention>
+      <textarea
+        nz-input
+        [nzAutosize]="{ minRows: 4, maxRows: 4 }"
+        [(ngModel)]="inputValue"
+        placeholder="Detalles de la cita"
+        nzMentionTrigger
+      >
+      </textarea>
+    </nz-mention>
+  </div>
+
   <button
     nz-button
     nzType="primary"

@@ -10,8 +10,13 @@
       <h3 [ngStyle]="{ margin: '16px 0' }"></h3>
       <nz-list nzBordered nzSize="small">
         <nz-list-item *ngFor="let appointment of appointments">
-          Fecha:
-          {{ appointment.startDate | date: "MMMM d" }} - atender:
+          <span class="span"
+            >Cita programada para:
+            <a class="text-primary">{{
+              appointment.startDate | date: "MM/d/yy, h:mm a"
+            }}</a></span
+          >
+
           {{ appointment.description }}
         </nz-list-item>
       </nz-list>

@@ -43,20 +43,14 @@ export class AppointmentsComponent implements OnInit {
       data.map((appointment) =>
         events.push({
           title: `Cita con ${appointment.user.name}`,
-          start: this.toDateTime(appointment.startDate.seconds),
-          end: this.toDateTime(appointment.endDate.seconds),
+          start: this.formatDate(appointment.startDate),
+          end: this.formatDate(appointment.endDate),
           id: appointment.id,
           backgroundColor: 'yellow',
         })
       );
       this.calendarOptions.events = events;
     });
-  }
-
-  toDateTime(secs) {
-    const t = new Date(1970, 0, 1); // Epoch
-    t.setSeconds(secs);
-    return t;
   }
 
   handleDateClick(arg) {
@@ -89,6 +83,36 @@ export class AppointmentsComponent implements OnInit {
         });
       })
     );
+  }
+  formatDate(date) {
+    let d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear(),
+      hour = d.getHours(),
+      minute = d.getMinutes(),
+      second = d.getSeconds();
+
+    return this.formateTime(year, month, day, hour, minute, second);
+  }
+  formateTime(year, month, day, hour, minute, second) {
+    return (
+      this.makeDoubleDigit(year) +
+      '-' +
+      this.makeDoubleDigit(month) +
+      '-' +
+      this.makeDoubleDigit(day) +
+      ' ' +
+      this.makeDoubleDigit(hour) +
+      ':' +
+      this.makeDoubleDigit(minute) +
+      ':' +
+      this.makeDoubleDigit(second)
+    );
+  }
+
+  makeDoubleDigit(x) {
+    return x < 10 ? '0' + x : x;
   }
 }
 // this.users = this.appointmentService.getAppointments().pipe(

@@ -49,10 +49,11 @@ export class AppointmentFormComponent implements OnInit {
   saveAppointment() {
     const appointment: Appointment = {
       idUser: this.userAppointment.id,
-      startDate: this.startValue,
-      endDate: this.endValue,
+      startDate: new Date(this.startValue).getTime(),
+      endDate: new Date(this.endValue).getTime(),
       description: this.inputValue,
     };
+    // console.log(appointment);
     this.appointmentService
       .addAppointment(appointment)
       .then(() => {
@@ -62,6 +63,9 @@ export class AppointmentFormComponent implements OnInit {
           '',
           1000
         );
+        this.startValue;
+        this.endValue;
+        this.inputValue;
       })
       .catch(() => {
         this.alerta.mostrarAlerta('error', 'No se registro la cita!', '', 1000);

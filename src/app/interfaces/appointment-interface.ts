@@ -1,7 +1,7 @@
 export class Appointment {
   id?: string;
   idUser: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: number;
+  endDate: number;
   description?: string;
 }
