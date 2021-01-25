@@ -24,4 +24,12 @@ export class AppointmentService {
   getAppointments() {
     return this.afs.collection<Appointment>('appointments').valueChanges();
   }
+
+  getAppointmentByPatient(idUser: string) {
+    return this.afs
+      .collection<Appointment>('appointments', (ref) =>
+        ref.where('idUser', '==', idUser)
+      )
+      .valueChanges();
+  }
 }

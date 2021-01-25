@@ -68,7 +68,6 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
-    console.log('init');
   }
 
   scheduleAppoinment(user: Usuario) {

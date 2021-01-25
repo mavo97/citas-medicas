@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzMentionModule } from 'ng-zorro-antd/mention';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzListModule } from 'ng-zorro-antd/list';
 
 // Components
 import { MenuComponent } from './components/shared/menu/menu.component';
@@ -87,9 +89,14 @@ FullCalendarModule.registerPlugins([
     NzModalModule,
     NzDatePickerModule,
     NzMentionModule,
+    NzAlertModule,
+    NzListModule,
     FullCalendarModule, // register FullCalendar with you app
   ],
-  providers: [{ provide: NZ_I18N, useValue: es_ES }],
+  providers: [
+    { provide: NZ_I18N, useValue: es_ES },
+    { provide: LOCALE_ID, useValue: 'es' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
