@@ -45,4 +45,10 @@ export class UsuariosService {
       )
       .valueChanges();
   }
+
+  getPatientsById(id: string) {
+    return this.afs
+      .collection<Usuario>('users', (ref) => ref.where('id', '==', id))
+      .valueChanges();
+  }
 }

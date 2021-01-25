@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Components
 import { AuthComponent } from './components/auth/auth.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AppointmentsComponent } from './components/appointments/appointments.component';
 
 // Guards
 import { IsPatientGuard } from './guards/is-patient.guard';
@@ -21,6 +22,11 @@ const routes: Routes = [
   {
     path: 'administrador',
     component: AdminComponent,
+    canActivate: [IsAdminGuard],
+  },
+  {
+    path: 'citas',
+    component: AppointmentsComponent,
     canActivate: [IsAdminGuard],
   },
   { path: '**', redirectTo: '/inicio', pathMatch: 'full' },

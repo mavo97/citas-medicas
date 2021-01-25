@@ -1,0 +1,7 @@
+<div class="container mt-5">
+  <p>appointments works!</p>
+  <li *ngFor="let item of events | async">{{ item.id }}</li>
+  <div class="container mb-5">
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+</div>

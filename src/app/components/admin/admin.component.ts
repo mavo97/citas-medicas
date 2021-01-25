@@ -28,7 +28,6 @@ export class AdminComponent implements OnInit {
   ) {
     // this.usersService.getPatients().subscribe((data) => console.log(data));
     this.loading = true;
-    this.loadUsers();
   }
   name: string;
   sortOrder: NzTableSortOrder | null;
@@ -67,7 +66,10 @@ export class AdminComponent implements OnInit {
     },
   ];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadUsers();
+    console.log('init');
+  }
 
   scheduleAppoinment(user: Usuario) {
     this.userAppointment = user;
@@ -109,7 +111,7 @@ export class AdminComponent implements OnInit {
   loadUsers() {
     this.usersService
       .getPatients()
-      .pipe(take(1))
+      .pipe()
       .subscribe((users) => {
         this.users = users;
         this.loading = false;

@@ -40,8 +40,19 @@ import localeEs from '@angular/common/locales/es';
 
 // Ng zorro date
 import { NZ_I18N, es_ES } from 'ng-zorro-antd/i18n';
-
+import { AppointmentsComponent } from './components/appointments/appointments.component';
 registerLocaleData(localeEs);
+
+// Calendar import
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([
+  // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin,
+]);
 
 @NgModule({
   declarations: [
@@ -53,6 +64,7 @@ registerLocaleData(localeEs);
     PatientComponent,
     EditUserComponent,
     AppointmentFormComponent,
+    AppointmentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +87,7 @@ registerLocaleData(localeEs);
     NzModalModule,
     NzDatePickerModule,
     NzMentionModule,
+    FullCalendarModule, // register FullCalendar with you app
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent],

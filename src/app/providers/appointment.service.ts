@@ -20,4 +20,8 @@ export class AppointmentService {
     const appointmentToSave: Appointment = { id, ...appointment };
     return this.appointmentsCollection.doc(id).set(appointmentToSave);
   }
+
+  getAppointments() {
+    return this.afs.collection<Appointment>('appointments').valueChanges();
+  }
 }

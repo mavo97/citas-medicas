@@ -1,40 +1,47 @@
-<!-- <div class="nz-demo-menu-horizontal bg-color">
-  <ul nz-menu nzMode="horizontal" [nzTheme]="'dark'">
-    <li nz-menu-item nzSelecteds *ngIf="tipoUsuario === 'Admin'">
-      <i class="fab fa-spotify text-success"></i>
-      Navigation One
-    </li>
-    <li nz-menu-item (click)="logOut()" *ngIf="auth.isLoggedIn">
-      <i class="fas fa-sign-out-alt text-white"></i>
-      Cerrar Sesión
-    </li>
-  </ul>
-</div> -->
-
-<!-- <nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand">Navbar <i class="fas fa-calendar"></i></a>
-</nav> -->
-<!-- Image and text -->
-<nav class="navbar navbar-dark bg-dark">
-  <a
-    class="navbar-brand ml"
-    [routerLink]="['/paciente']"
-    *ngIf="tipoUsuario === 'Paciente'"
-  >
-    <i class="fas fa-user"></i> Mi perfil
-  </a>
-  <a
-    class="navbar-brand"
-    [routerLink]="['/paciente']"
-    *ngIf="tipoUsuario === 'Admin'"
-  >
-    <i class="fas fa-user-shield"></i> Administrador
-  </a>
-
-  <span class="navbar-text">
-    <a class="mr" (click)="logOut()" *ngIf="auth.isLoggedIn">
-      <i class="fas fa-sign-out-alt text-white"></i>
-      Cerrar sesión
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a
+      class="navbar-brand ml"
+      [routerLink]="['/paciente']"
+      *ngIf="tipoUsuario === 'Paciente'"
+    >
+      <i class="fas fa-user"></i> Mi perfil
     </a>
-  </span>
+    <a
+      class="navbar-brand"
+      [routerLink]="['/paciente']"
+      *ngIf="tipoUsuario === 'Admin'"
+    >
+      <i class="fas fa-user-shield"></i> Administrador
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item" *ngIf="tipoUsuario === 'Admin'">
+          <a
+            class="nav-link"
+            routerLink="/citas"
+            routerLinkActive="active"
+            aria-current="page"
+            >Citas</a
+          >
+        </li>
+      </ul>
+    </div>
+    <span class="navbar-text">
+      <a class="mr" (click)="logOut()" *ngIf="auth.isLoggedIn">
+        <i class="fas fa-sign-out-alt text-white"> Cerrar sesión</i>
+      </a>
+    </span>
+  </div>
 </nav>
