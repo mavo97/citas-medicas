@@ -5,3 +5,10 @@
 .mr {
   margin-right: 20px;
 }
+.darkgreen {
+  background-color: #325a4f;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
