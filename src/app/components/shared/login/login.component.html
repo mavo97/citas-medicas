@@ -132,13 +132,13 @@
         >
           Regístrate
         </button>
-        <p class="text-white mt-3" *ngIf="!signUp && logIn">
+        <p class="text-dark mt-3" *ngIf="!signUp && logIn">
           ¡O
           <a (click)="onFormSignUpChange(true)" type="button">
             regístrese ahora!
           </a>
         </p>
-        <p class="text-white mt-3" *ngIf="signUp && !logIn">
+        <p class="text-dark mt-3" *ngIf="signUp && !logIn">
           <a (click)="onFormLogInChange(true)" type="button">
             Iniciar sesión
           </a>

@@ -2,13 +2,13 @@
   margin-top: 100px;
 }
 .iconLogin {
-  color: white;
+  color: black;
 }
 label {
-  color: white;
+  color: black;
 }
 .white {
-  color: white;
+  color: black;
 }
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -22,5 +22,5 @@ button[disabled] {
 }
 
 h3 {
-  color: white;
+  color: black;
 }

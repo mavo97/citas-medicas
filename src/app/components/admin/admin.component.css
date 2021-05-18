@@ -4,6 +4,6 @@ form nz-form-item {
 }
 
 ::ng-deep .color-modal {
-  background: black !important;
-  background-color: black !important;
+  background: white !important;
+  background-color: white !important;
 }

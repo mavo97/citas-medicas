@@ -22,7 +22,7 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/styles.css",
-              "node_modules/ng-zorro-antd/ng-zorro-antd.dark.css"
+              "node_modules/ng-zorro-antd/ng-zorro-antd.aliyun.css"
             ],
             "scripts": []
           },
