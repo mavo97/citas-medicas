@@ -49,6 +49,7 @@ registerLocaleData(localeEs);
 import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction';
+import { HomeComponent } from './components/home/home.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -67,6 +68,7 @@ FullCalendarModule.registerPlugins([
     EditUserComponent,
     AppointmentFormComponent,
     AppointmentsComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
