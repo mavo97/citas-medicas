@@ -1,0 +1,28 @@
+.darkgreen {
+  background-color: #0c231e;
+}
+
+#principalDiv {
+  border: 2px solid #0c231e;
+  border-radius: 8px;
+}
+
+.greenBox {
+  width: 100%;
+  background-color: #428071;
+  color: white;
+  font-style: normal;
+}
+
+.customList {
+  color: #cc6431;
+}
+
+.btn-orange {
+  background-color: #ca5d2c;
+  color: white;
+}
+
+.btn {
+  border-radius: 12px !important;
+}

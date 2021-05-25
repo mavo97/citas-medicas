@@ -1,1 +1,121 @@
-<p>home works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark darkgreen">
+  <div class="container-fluid">
+    <a class="navbar-brand"> <i class="fas fa-home"></i> Citas médicas </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [ngClass]="{ 'active fw-bold': currentView === 'principal' }"
+            (click)="changeView('principal')"
+            >Principal</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [ngClass]="{ 'active fw-bold': currentView === 'acercade' }"
+            (click)="changeView('acercade')"
+            >Acerca De</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToMyAccount()">
+            <i class="fas fa-sign-in-alt"></i> Acceder</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container p-3">
+  <!-- TODO: Principal -->
+  <div *ngIf="currentView === 'principal'">
+    <h3>Agenda tu Cita Médica Digital</h3>
+    <div id="principalDiv">
+      <div class="p-4 mt-5">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="d-flex justify-content-center">
+              <img
+                class="img-fluid w-100"
+                src="../../../assets/cita_medica.jpg"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-6">
+            <div class="greenBox p-3">
+              <p class="fs-6 lh-base">
+                Ahora puedes agendar tu cita y la de tus beneficiarios con tu
+                médico familiar en las Unidades de Medicina Familiar (UMF), a
+                través de la Aplicación móvil IMSS Digital y por internet.
+              </p>
+            </div>
+            <div class="p-3 fs-5">
+              <span class="fw-bold customList">Beneficios:</span>
+              <ul>
+                <li>No tienes que hacer fila</li>
+                <li>Es rápido y sencillo</li>
+                <li>Sólo debes contar con correo electrónico</li>
+              </ul>
+            </div>
+            <div class="pl-3 pr-3 fs-5">
+              <span class="fw-bold customList">Disponible en:</span>
+              <ul>
+                <li>
+                  <span class="fw-bold">Por internet: </span>
+                  <a href="https://citas-medicas.vercel.app/paciente"
+                    >https://citas-medicas.vercel.app/paciente</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <div class="row">
+                <div class="col-md-6"></div>
+
+                <div class="col-md-6">
+                  <div class="d-grid gap-2">
+                    <button
+                      class="btn btn-orange fw-bold fs-5"
+                      type="button"
+                      (click)="scheduleAppointment()"
+                    >
+                      ¡Agéndala ya!
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="currentView === 'acercade'">
+    <div class="p-3">
+      <h1>Misión</h1>
+      <p class="fs-5">
+        Nuestra es ser el instrumento básico de la seguridad social, establecido
+        como un servicio público de carácter nacional, para todos los
+        trabajadores y trabajadoras y sus familias
+      </p>
+      <h1>Visión</h1>
+      <p class="fs-5">Por un México con más y mejor seguridad social</p>
+    </div>
+  </div>
+</div>
