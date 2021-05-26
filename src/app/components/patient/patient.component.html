@@ -1,5 +1,5 @@
 <app-menu></app-menu>
-<div class="container text-dark">
+<div class="container text-dark" *ngIf="!loading">
   <div class="mt-3" *ngIf="usuario">
     <h4><i class="far fa-user"></i> Hola, {{ usuario.name }}</h4>
     <div class="container">
@@ -13,8 +13,8 @@
         <nz-list-item *ngFor="let appointment of appointments">
           <span class="span"
             >Cita programada para:
-            <a class="text-dark">{{
-              appointment.startDate | date: "MM/d/yy, h:mm a"
+            <a class="text-dark fw-bold">{{
+              appointment.startDate | date: "MMMM d, y, h:mm a"
             }}</a></span
           >
 
@@ -24,3 +24,5 @@
     </div>
   </div>
 </div>
+
+<app-customloading *ngIf="loading"></app-customloading>

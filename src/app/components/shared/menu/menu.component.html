@@ -7,7 +7,7 @@
     >
       <i class="fas fa-user"></i> Mi perfil
     </a>
-    <a class="navbar-brand ml" [routerLink]="['/']">
+    <a class="navbar-brand ml" [routerLink]="['/']" *ngIf="!tipoUsuario">
       <i class="fas fa-undo-alt"></i> Regresar
     </a>
     <a

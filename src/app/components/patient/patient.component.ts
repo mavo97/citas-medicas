@@ -13,12 +13,14 @@ import { Appointment } from 'src/app/interfaces/appointment-interface';
 export class PatientComponent implements OnInit {
   usuario: Usuario;
   appointments: any[];
+  loading: boolean;
   constructor(
     private userService: UsuariosService,
     private appointmentService: AppointmentService
   ) {}
 
   ngOnInit(): void {
+    this.loading = true;
     const userStorage = JSON.parse(localStorage.getItem('user'));
     this.getUser(userStorage);
     this.appointmentService
@@ -32,6 +34,7 @@ export class PatientComponent implements OnInit {
             endDate: this.formatDate(appointment.endDate),
           };
         });
+        this.loading = false;
       });
   }
 

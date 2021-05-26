@@ -50,6 +50,7 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // the main connecto
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction';
 import { HomeComponent } from './components/home/home.component';
+import { CustomloadingComponent } from './components/shared/customloading/customloading.component';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -69,6 +70,7 @@ FullCalendarModule.registerPlugins([
     AppointmentFormComponent,
     AppointmentsComponent,
     HomeComponent,
+    CustomloadingComponent,
   ],
   imports: [
     BrowserModule,
