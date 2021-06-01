@@ -3,6 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 import { Appointment } from '../interfaces/appointment-interface';
 
 @Injectable({
@@ -23,6 +24,21 @@ export class AppointmentService {
 
   getAppointments() {
     return this.afs.collection<Appointment>('appointments').valueChanges();
+  }
+
+  savedAppointments() {
+    return this.afs
+      .collection<Appointment[]>('appointments')
+      .snapshotChanges()
+      .pipe(
+        map((appointments) =>
+          appointments.map((a) => {
+            const data = a.payload.doc.data(); // DB Questions
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
   }
 
   getAppointmentByPatient(idUser: string) {

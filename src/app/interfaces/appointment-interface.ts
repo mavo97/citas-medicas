@@ -5,3 +5,11 @@ export class Appointment {
   endDate: number;
   description?: string;
 }
+
+export interface Appointments {
+  id?: string;
+  idUser: string;
+  startDate: number;
+  endDate: number;
+  description?: string;
+}
