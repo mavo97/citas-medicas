@@ -41,7 +41,10 @@
   [nzFooter]="modalFooterTop"
 >
   <ng-container *nzModalContent>
-    <app-appointment-form [userAppointment]="usuario"></app-appointment-form>
+    <app-appointment-form
+      [userAppointment]="usuario"
+      (savedAppointmentEvent)="savedAppointmentHander($event)"
+    ></app-appointment-form>
   </ng-container>
 
   <ng-template #modalFooterTop>

@@ -89,18 +89,23 @@ export class PatientComponent implements OnInit {
 
   handleCancelTop(): void {
     this.isVisibleTop = false;
-    const userStorage = JSON.parse(localStorage.getItem('user'));
-    this.appointmentService
-      .getAppointmentByPatient(userStorage.uid)
-      .pipe(take(1))
-      .subscribe((appointments) => {
-        this.appointments = appointments.map((appointment) => {
-          return {
-            ...appointment,
-            startDate: this.formatDate(appointment.startDate),
-            endDate: this.formatDate(appointment.endDate),
-          };
+  }
+
+  savedAppointmentHander(event: boolean) {
+    if (event) {
+      const userStorage = JSON.parse(localStorage.getItem('user'));
+      this.appointmentService
+        .getAppointmentByPatient(userStorage.uid)
+        .pipe(take(1))
+        .subscribe((appointments) => {
+          this.appointments = appointments.map((appointment) => {
+            return {
+              ...appointment,
+              startDate: this.formatDate(appointment.startDate),
+              endDate: this.formatDate(appointment.endDate),
+            };
+          });
         });
-      });
+    }
   }
 }

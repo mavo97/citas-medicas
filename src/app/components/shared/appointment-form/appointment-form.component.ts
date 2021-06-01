@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 import { Usuario } from '../../../interfaces/usuario-interface';
 import { Appointment } from '../../../interfaces/appointment-interface';
@@ -14,6 +21,7 @@ import { take } from 'rxjs/operators';
 })
 export class AppointmentFormComponent implements OnInit {
   @Input() userAppointment: Usuario;
+  @Output() savedAppointmentEvent = new EventEmitter<boolean>();
   startValue: Date | null = null;
   endValue: Date | null = null;
   currentDate: Date = new Date();
@@ -82,6 +90,7 @@ export class AppointmentFormComponent implements OnInit {
           this.appointmentService
             .addAppointment(appointment)
             .then(() => {
+              this.savedAppointmentEvent.emit(true);
               this.alerta.mostrarAlerta(
                 'success',
                 'La cita fue registrada!',
@@ -116,13 +125,29 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   onChange(event: any) {
-    console.log('On change', event);
+    // console.log('On change', event);
+    if (event.length > 0) {
+      this.startValue = event[0];
+      this.endValue = event[1];
+
+      if (this.startValue && this.endValue) {
+        const dateInPast = this.dateInPast(this.startValue, this.currentDate);
+        if (!dateInPast) {
+          const saveDates = this.datesValidation();
+          if (saveDates) {
+            // console.log('Se puede guardar');
+          }
+        } else {
+          this.dates = [];
+        }
+      }
+    }
   }
   onCalendarChange(event: any) {
     // console.log('On calendar change', event);
   }
   onOk(event: Date[]) {
-    console.log('On ok', event);
+    // console.log('On ok', event);
     this.startValue = event[0];
     this.endValue = event[1];
 
