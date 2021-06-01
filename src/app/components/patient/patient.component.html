@@ -8,21 +8,45 @@
         nzMessage="A continuación se muestra tu lista de citas!"
         nzShowIcon
       ></nz-alert>
+      <button class="btn btn-secondary" (click)="openModal()">
+        Agendar cita
+      </button>
       <h3 [ngStyle]="{ margin: '16px 0' }"></h3>
-      <nz-list nzBordered nzSize="small">
-        <nz-list-item *ngFor="let appointment of appointments">
-          <span class="span"
-            >Cita programada para:
-            <a class="text-dark fw-bold">{{
-              appointment.startDate | date: "MMMM d, y, h:mm a"
-            }}</a></span
-          >
-
-          {{ appointment.description }}
-        </nz-list-item>
-      </nz-list>
+      <nz-table #basicTable [nzData]="appointments">
+        <thead>
+          <tr>
+            <th>Motivo</th>
+            <th>Fecha inicio</th>
+            <th>Fecha fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.description }}</td>
+            <td>{{ data.startDate | date: "MMMM d, y, h:mm a" }}</td>
+            <td>{{ data.endDate | date: "MMMM d, y, h:mm a" }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
     </div>
   </div>
 </div>
 
 <app-customloading *ngIf="loading"></app-customloading>
+
+<nz-modal
+  [nzStyle]="{ top: '20px' }"
+  [(nzVisible)]="isVisibleTop"
+  nzTitle="Agendar cita"
+  [nzFooter]="modalFooterTop"
+>
+  <ng-container *nzModalContent>
+    <app-appointment-form [userAppointment]="usuario"></app-appointment-form>
+  </ng-container>
+
+  <ng-template #modalFooterTop>
+    <button nz-button nzType="default" (click)="handleCancelTop()">
+      Cerrar modal
+    </button>
+  </ng-template>
+</nz-modal>

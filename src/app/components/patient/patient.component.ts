@@ -14,6 +14,8 @@ export class PatientComponent implements OnInit {
   usuario: Usuario;
   appointments: any[];
   loading: boolean;
+  isVisibleTop = false;
+
   constructor(
     private userService: UsuariosService,
     private appointmentService: AppointmentService
@@ -79,5 +81,26 @@ export class PatientComponent implements OnInit {
 
   makeDoubleDigit(x) {
     return x < 10 ? '0' + x : x;
+  }
+
+  openModal(): void {
+    this.isVisibleTop = true;
+  }
+
+  handleCancelTop(): void {
+    this.isVisibleTop = false;
+    const userStorage = JSON.parse(localStorage.getItem('user'));
+    this.appointmentService
+      .getAppointmentByPatient(userStorage.uid)
+      .pipe(take(1))
+      .subscribe((appointments) => {
+        this.appointments = appointments.map((appointment) => {
+          return {
+            ...appointment,
+            startDate: this.formatDate(appointment.startDate),
+            endDate: this.formatDate(appointment.endDate),
+          };
+        });
+      });
   }
 }
