@@ -3,23 +3,21 @@
     <i class="fas fa-calendar-check"></i> Cita para
     <span style="font-style: italic">{{ userAppointment.name }}</span>
   </h4>
-  <nz-date-picker
-    [nzDisabledDate]="disabledStartDate"
-    nzShowTime
-    nzFormat="dd-MM-yyyy HH:mm"
-    [(ngModel)]="startValue"
-    nzPlaceHolder="Hora inicio"
-    (nzOnOpenChange)="handleStartOpenChange($event)"
-  ></nz-date-picker>
-  <nz-date-picker
-    #endDatePicker
-    [nzDisabledDate]="disabledEndDate"
-    nzShowTime
-    nzFormat="dd-MM-yyyy HH:mm"
-    [(ngModel)]="endValue"
-    nzPlaceHolder="Hora fín"
-    (nzOnOpenChange)="handleEndOpenChange($event)"
-  ></nz-date-picker>
+  <h5 class="fw-bold text-secondary fs-6">
+    Las citas deben tener un lapso de tiempo de media hora y los minutos deben
+    ser como en el ejemplo: 00 o 30.
+  </h5>
+
+  <br />
+  <nz-range-picker
+    [nzShowTime]="{ nzFormat: 'HH:mm' }"
+    nzFormat="yyyy-MM-dd HH:mm"
+    [(ngModel)]="dates"
+    (ngModelChange)="onChange($event)"
+    (nzOnCalendarChange)="onCalendarChange($event)"
+    (nzOnOk)="onOk($event)"
+  ></nz-range-picker>
+  <br />
   <div class="row">
     <span style="color: red">*Campo requerido</span>
     <nz-mention>
