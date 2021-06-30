@@ -16,7 +16,7 @@ label {
 }
 button:disabled,
 button[disabled] {
-  color: black;
+  color: #d82231;
 }
 
 h3 {

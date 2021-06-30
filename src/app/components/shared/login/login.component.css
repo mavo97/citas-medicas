@@ -2,13 +2,13 @@
   margin-top: 100px;
 }
 .iconLogin {
-  color: black;
+  color: #d82231;
 }
 label {
-  color: black;
+  color: #d82231;
 }
 .white {
-  color: black;
+  color: #d82231;
 }
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -18,9 +18,9 @@ label {
 
 button:disabled,
 button[disabled] {
-  color: black;
+  color: #d82231;
 }
 
 h3 {
-  color: black;
+  color: #d82231;
 }
